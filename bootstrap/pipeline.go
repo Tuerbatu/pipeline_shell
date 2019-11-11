@@ -10,7 +10,7 @@ type pipe struct {
 	Outmess  chan Pipemess
 }
 type Pipemess struct {
-	isInbound bool
+	IsInbound bool
 	Value     interface{}
 }
 
@@ -65,7 +65,7 @@ func (p pipe) Start(client net.Conn) {
 	}
 }
 func manage(client net.Conn, key Hfunc, shuju Pipemess) (Pipemess, bool) {
-	if key.IsInbound(shuju) != shuju.isInbound {
+	if key.IsInbound(shuju) != shuju.IsInbound {
 		return shuju, false
 	}
 	jieguo := key.Dispose(client, shuju)
