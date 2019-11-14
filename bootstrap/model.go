@@ -9,13 +9,13 @@ import (
 
 type ServerBootstrap struct {
 	Post   string
-	Mypipe pipe
+	Mypipe Pipe
 }
 
 func (server *ServerBootstrap) SetPort(post string) {
 	server.Post = post
 }
-func (server *ServerBootstrap) SetPipe(mypipe pipe) {
+func (server *ServerBootstrap) SetPipe(mypipe Pipe) {
 	server.Mypipe = mypipe
 }
 
@@ -35,9 +35,9 @@ func (server ServerBootstrap) Strat() {
 		pipeline := GetPipeline()
 		ceshi := make([]Handler, 0)
 		for _, handler := range server.Mypipe.Handlers {
-			as := handler.Hfunc
-			deepCopy(as, handler.Hfunc)
-			ceshi = append(ceshi, Handler{&pipeline, as})
+			as := handler
+			deepCopy(as, handler)
+			ceshi = append(ceshi, as)
 		}
 		pipeline.Handlers = ceshi
 		go pipeline.Start(client)
