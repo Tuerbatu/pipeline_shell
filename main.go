@@ -1,21 +1,18 @@
 package main
 
 import (
-	"servershell/bootstrap"
-	"servershell/headler"
+	"github.com/Tuerbatu/pipeline_shell/bootstrap"
+	"github.com/Tuerbatu/pipeline_shell/headler"
 )
 
 func main() {
 	pipeline := bootstrap.GetPipeline()
-	pipeline.AddHeadler(bootstrap.Handler{
-		Hfunc: &headler.ByteToMess{
-			Buffer:   make([]byte, 200),
-			Readline: make([]byte, 200),
-		}})
-	pipeline.AddHeadler(bootstrap.Handler{
-		Hfunc: &headler.MessLook{}})
-	pipeline.AddHeadler(bootstrap.Handler{
-		Hfunc: &headler.Login{}})
+	pipeline.AddHeadler(headler.ByteToMess{
+		Buffer:   make([]byte, 200),
+		Readline: make([]byte, 200),
+	})
+	pipeline.AddHeadler(headler.MessLook{})
+	pipeline.AddHeadler(headler.Login{})
 	server := bootstrap.ServerBootstrap{":8080", pipeline}
 	server.Strat()
 }
