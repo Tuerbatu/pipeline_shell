@@ -4,8 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"net"
-	"servershell/bean"
-	"servershell/bootstrap"
+
+	"github.com/Tuerbatu/pipeline_shell/bean"
+	"github.com/Tuerbatu/pipeline_shell/bootstrap"
 )
 
 type MessLook struct {
@@ -14,7 +15,7 @@ type MessLook struct {
 func (m MessLook) IsInbound(shuju bootstrap.Pipemess) bool {
 	return true
 }
-func (m MessLook) Dispose(client net.Conn, shuju bootstrap.Pipemess) bootstrap.Pipemess {
+func (m MessLook) Dispose(client net.Conn, mypipe *bootstrap.Pipe, shuju bootstrap.Pipemess) bootstrap.Pipemess {
 	key, ok := shuju.Value.(bean.Message)
 	if !ok {
 		return shuju

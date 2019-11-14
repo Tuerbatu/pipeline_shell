@@ -3,8 +3,9 @@ package headler
 import (
 	"fmt"
 	"net"
-	"servershell/bean"
-	"servershell/bootstrap"
+
+	"github.com/Tuerbatu/pipeline_shell/bean"
+	"github.com/Tuerbatu/pipeline_shell/bootstrap"
 )
 
 type Login struct {
@@ -13,7 +14,7 @@ type Login struct {
 func (l Login) IsInbound(shuju bootstrap.Pipemess) bool {
 	return true
 }
-func (l Login) Dispose(client net.Conn, shuju bootstrap.Pipemess) bootstrap.Pipemess {
+func (l Login) Dispose(client net.Conn, mypipe *bootstrap.Pipe, shuju bootstrap.Pipemess) bootstrap.Pipemess {
 	key, ok := shuju.Value.(bean.User)
 	if !ok {
 		return shuju

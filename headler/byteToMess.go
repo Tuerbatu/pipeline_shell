@@ -3,8 +3,9 @@ package headler
 import (
 	"encoding/json"
 	"net"
-	"servershell/bean"
-	"servershell/bootstrap"
+
+	"github.com/Tuerbatu/pipeline_shell/bean"
+	"github.com/Tuerbatu/pipeline_shell/bootstrap"
 )
 
 type ByteToMess struct {
@@ -15,7 +16,7 @@ type ByteToMess struct {
 func (b ByteToMess) IsInbound(shuju bootstrap.Pipemess) bool {
 	return true
 }
-func (b ByteToMess) Dispose(client net.Conn, shuju bootstrap.Pipemess) bootstrap.Pipemess {
+func (b ByteToMess) Dispose(client net.Conn, mypipe *bootstrap.Pipe, shuju bootstrap.Pipemess) bootstrap.Pipemess {
 	i, _ := client.Read(b.Readline)
 	key := []byte{}
 	switch b.Readline[0] {
